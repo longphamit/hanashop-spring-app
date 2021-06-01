@@ -1,16 +1,15 @@
 package com.longpc.hanashopspringapp.resource;
 
+import com.longpc.hanashopspringapp.dto.BaseSearchParamDTO;
 import com.longpc.hanashopspringapp.utils.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-public class BaseResource<P,T> {
+public abstract class BaseResource<P,T> {
 
     enum Message{
         SEARCH_SUCCESS,
@@ -40,4 +39,8 @@ public class BaseResource<P,T> {
     protected Logger getLogger(P clazz){
         return LoggerFactory.getLogger(clazz.getClass());
     }
+
+    public abstract ResponseEntity search();
+    public abstract ResponseEntity insert(T t);
+    public abstract ResponseEntity update(T t);
 }

@@ -3,7 +3,7 @@ package com.longpc.hanashopspringapp.services.impl;
 import com.longpc.hanashopspringapp.constant.ImageConstant;
 import com.longpc.hanashopspringapp.constant.LoggerConstant;
 import com.longpc.hanashopspringapp.entities.UserEntity;
-import com.longpc.hanashopspringapp.repositories.IUserRepository;
+import com.longpc.hanashopspringapp.repositories.UserRepository;
 import com.longpc.hanashopspringapp.services.IImageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 public class ImageService implements IImageService {
     private Logger LOGGER= LoggerFactory.getLogger(getClass());
     @Autowired
-    IUserRepository userRepository;
+    UserRepository userRepository;
     @Override
     public void updateUserImage(UserEntity userEntity, MultipartFile avatar) throws Exception {
         if(avatar!=null){

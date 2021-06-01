@@ -3,7 +3,7 @@ package com.longpc.hanashopspringapp.services.impl;
 import com.longpc.hanashopspringapp.constant.UserConstant;
 import com.longpc.hanashopspringapp.dto.UserSearchParamDTO;
 import com.longpc.hanashopspringapp.entities.UserEntity;
-import com.longpc.hanashopspringapp.repositories.IUserRepository;
+import com.longpc.hanashopspringapp.repositories.UserRepository;
 import com.longpc.hanashopspringapp.services.IImageService;
 import com.longpc.hanashopspringapp.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @Service
 public class UserService implements IUserService {
     @Autowired
-    IUserRepository userRepository;
+    UserRepository userRepository;
     @Autowired
     IImageService iImageService;
 
@@ -57,12 +57,13 @@ public class UserService implements IUserService {
     public boolean updateUser(UserEntity userEntity, MultipartFile avatar) throws Exception {
         userEntity.setUpdateAt(new Timestamp(new Date().getTime()));
         userRepository.save(userEntity);
-        iImageService.saveUserImage(userEntity, avatar);
+        iImageService.updateUserImage(userEntity, avatar);
         return true;
     }
 
     public List<UserEntity> getUsers(UserSearchParamDTO userSearchParamDTO) throws Exception {
-        return userRepository.findAll();
+        List<UserEntity> useLisst = userRepository.search(userSearchParamDTO);
+        return useLisst;
     }
 
     public UserEntity getUserDetail() {

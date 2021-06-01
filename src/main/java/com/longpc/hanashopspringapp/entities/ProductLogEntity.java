@@ -8,10 +8,10 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "category")
-public class CategoryEntity {
+@Table(name = "productlog")
+public class ProductLogEntity {
     @Id
-    String id;
-    String name;
-    String parentId;
+    private String id;
+    private String name;
+    private String productId;
 }

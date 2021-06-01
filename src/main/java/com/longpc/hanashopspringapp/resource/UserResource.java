@@ -2,6 +2,7 @@ package com.longpc.hanashopspringapp.resource;
 
 import com.longpc.hanashopspringapp.constant.ImageConstant;
 import com.longpc.hanashopspringapp.constant.LoggerConstant;
+import com.longpc.hanashopspringapp.dto.BaseSearchParamDTO;
 import com.longpc.hanashopspringapp.dto.LoginDTO;
 import com.longpc.hanashopspringapp.dto.UserSearchParamDTO;
 import com.longpc.hanashopspringapp.entities.UserEntity;
@@ -70,7 +71,7 @@ public class UserResource extends BaseResource<UserResource, UserEntity> {
     }
 
     @PostMapping
-    public ResponseEntity create(
+    public ResponseEntity insert(
             @RequestParam(value = "username") String username,
             @RequestParam(value = "email") String email,
             @RequestParam(value = "fullname") String fullname,
@@ -95,9 +96,24 @@ public class UserResource extends BaseResource<UserResource, UserEntity> {
         }
     }
 
+    @Override
+    public ResponseEntity search() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity insert(UserEntity userEntity) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity update(UserEntity userEntity) {
+        return null;
+    }
+
     @PutMapping
     public ResponseEntity update(
-            @RequestPart(value = "image")  MultipartFile avatar,
+            @RequestPart(value = "image" , required = false)  MultipartFile avatar,
             @RequestPart(value = "inforUser") UserEntity userEntity) {
         try {
             userService.updateUser(userEntity, avatar);
@@ -112,7 +128,7 @@ public class UserResource extends BaseResource<UserResource, UserEntity> {
     }
 
     @PostMapping("/search")
-    public ResponseEntity searchUser(@RequestBody UserSearchParamDTO userSearchParamDTO) {
+    public ResponseEntity search(@RequestBody UserSearchParamDTO userSearchParamDTO) {
         try {
             getLogger(this).info(LoggerConstant.createMessageLog("Get List Users Success"));
             return responseListDataObject(HttpStatus.OK, Message.SEARCH_SUCCESS.name(), userService.getUsers(userSearchParamDTO));

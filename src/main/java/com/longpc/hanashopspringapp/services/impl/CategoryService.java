@@ -1,7 +1,7 @@
 package com.longpc.hanashopspringapp.services.impl;
 
 import com.longpc.hanashopspringapp.entities.CategoryEntity;
-import com.longpc.hanashopspringapp.repositories.ICategoryRepository;
+import com.longpc.hanashopspringapp.repositories.CategoryRepository;
 import com.longpc.hanashopspringapp.services.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Service
 public class CategoryService implements ICategoryService {
     @Autowired
-    ICategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
 
     @Override
     public List<CategoryEntity> search() throws Exception {

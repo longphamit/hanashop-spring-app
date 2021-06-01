@@ -1,13 +1,10 @@
 package com.longpc.hanashopspringapp.dto;
 
-public class UserSearchParamDTO {
-    private String usernameExcept;
+import lombok.Data;
 
-    public String getUsernameExcept() {
-        return usernameExcept;
-    }
-
-    public void setUsernameExcept(String usernameExcept) {
-        this.usernameExcept = usernameExcept;
-    }
+@Data
+public class UserSearchParamDTO implements BaseSearchParamDTO{
+    private String username;
+    private String roleId;
+    private String fullname;
 }
