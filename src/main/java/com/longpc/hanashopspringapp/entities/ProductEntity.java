@@ -2,10 +2,9 @@ package com.longpc.hanashopspringapp.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,7 +18,8 @@ public class ProductEntity {
     private double price;
     private String categoryId;
     private String brandId;
-    private String imageId;
     private String status;
     private Date createAt;
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
+    private List<ImageProductEntity> imageList;
 }

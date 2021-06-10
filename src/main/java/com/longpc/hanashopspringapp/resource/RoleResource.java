@@ -19,7 +19,7 @@ public class RoleResource extends BaseResource<RoleResource, RoleEntity> {
     @GetMapping
     public ResponseEntity search(){
         try{
-            getLogger(this).info(LoggerConstant.createMessageLog(Message.SEARCH_SUCCESS.name()));
+            log(this,"search role success",INFO);
             return responseListDataObject(HttpStatus.OK,Message.SEARCH_SUCCESS.name(),roleService.search());
         }catch (Exception e){
             e.printStackTrace();
@@ -36,8 +36,4 @@ public class RoleResource extends BaseResource<RoleResource, RoleEntity> {
         return null;
     }
 
-    @Override
-    public ResponseEntity update(MultipartFile file, RoleEntity roleEntity) {
-        return null;
-    }
 }

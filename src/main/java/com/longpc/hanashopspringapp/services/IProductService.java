@@ -8,7 +8,7 @@ import java.util.List;
 public interface IProductService {
     List<ProductEntity> search() throws Exception;
 
-    void save(ProductEntity productEntity, MultipartFile image) throws Exception;
+    void save(ProductEntity productEntity, List<MultipartFile> images) throws Exception;
 
     void update(ProductEntity productEntity, MultipartFile image) throws Exception;
 

@@ -2,7 +2,6 @@ package com.longpc.hanashopspringapp.resource;
 
 import com.longpc.hanashopspringapp.constant.ImageConstant;
 import com.longpc.hanashopspringapp.constant.LoggerConstant;
-import com.longpc.hanashopspringapp.dto.BaseSearchParamDTO;
 import com.longpc.hanashopspringapp.dto.LoginDTO;
 import com.longpc.hanashopspringapp.dto.UserSearchParamDTO;
 import com.longpc.hanashopspringapp.entities.UserEntity;
@@ -33,11 +32,11 @@ public class UserResource extends BaseResource<UserResource, UserEntity> {
             UserEntity userResult = null;
             userResult = userService.loginByUsernameOrEmail(loginDTO.getLoginString(), loginDTO.getPassword());
             if (userResult == null) {
-                getLogger(this).info(LoggerConstant.createMessageLog("Login Fail", loginDTO.getLoginString()));
+                log(this,"Login Fail",WARNING);;
                 return responseListDataObject(HttpStatus.BAD_REQUEST, Message.LOGIN_BY_USERNAME_FAIL.name(), null);
             } else {
                 userEntities.add(userResult);
-                getLogger(this).info(LoggerConstant.createMessageLog("Login Success", userResult.getEmail()));
+                log(this,"Login Success"+loginDTO.getLoginString(),INFO);
                 return responseListDataObject(HttpStatus.OK, Message.LOGIN_BY_USERNAME_SUCCESS.name(), userEntities);
             }
         } catch (Exception e) {
@@ -54,10 +53,10 @@ public class UserResource extends BaseResource<UserResource, UserEntity> {
                 userService.loginByEmail(userEntity.getEmail());
                 List<UserEntity> userEntities = new ArrayList<>();
                 userEntities.add(userEntity);
-                getLogger(this).info(LoggerConstant.createMessageLog("Login Success", userEntity.getEmail()));
+                log(this,"Login Success"+ userEntity.getEmail(),INFO);
                 return responseListDataObject(HttpStatus.OK, Message.LOGIN_BY_USERNAME_SUCCESS.name(), userEntities);
             }
-            getLogger(this).info(LoggerConstant.createMessageLog("Login Fail", userEntity.getEmail()));
+            log(this,"Login Fail",WARNING);
             return responseListDataObject(HttpStatus.BAD_REQUEST, Message.LOGIN_BY_USERNAME_FAIL.name(), null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,7 +87,7 @@ public class UserResource extends BaseResource<UserResource, UserEntity> {
             userService.createUser(userEntity, avatar);
             List<UserEntity> userEntities = new ArrayList<>();
             userEntities.add(userEntity);
-            getLogger(this).info(LoggerConstant.createMessageLog("Create User Success", userEntity.getEmail()));
+            log(this,"Create User Success",INFO);
             return responseListDataObject(HttpStatus.OK, Message.CREATE_SUCCESS.name(), userEntities);
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,7 +118,7 @@ public class UserResource extends BaseResource<UserResource, UserEntity> {
             userService.updateUser(userEntity, avatar);
             List<UserEntity> userEntities = new ArrayList<>();
             userEntities.add(userEntity);
-            getLogger(this).info(LoggerConstant.createMessageLog("Update User Success", userEntity.getEmail()));
+            log(this,"Update User Success",INFO);
             return responseListDataObject(HttpStatus.OK, Message.CREATE_SUCCESS.name(), userEntities);
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,7 +129,7 @@ public class UserResource extends BaseResource<UserResource, UserEntity> {
     @PostMapping("/search")
     public ResponseEntity search(@RequestBody UserSearchParamDTO userSearchParamDTO) {
         try {
-            getLogger(this).info(LoggerConstant.createMessageLog("Get List Users Success"));
+            log(this,"Get List Users Success",INFO);
             return responseListDataObject(HttpStatus.OK, Message.SEARCH_SUCCESS.name(), userService.getUsers(userSearchParamDTO));
         } catch (Exception e) {
             e.printStackTrace();

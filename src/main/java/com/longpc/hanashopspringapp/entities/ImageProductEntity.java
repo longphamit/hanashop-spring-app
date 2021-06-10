@@ -2,9 +2,7 @@ package com.longpc.hanashopspringapp.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -13,5 +11,9 @@ public class ImageProductEntity {
     @Id
     private String id;
     private String path;
+    @Column(name = "product_id")
     private String productId;
+    @ManyToOne()
+    @JoinColumn(name = "product_id",insertable = false,updatable = false)
+    private ProductEntity product;
 }

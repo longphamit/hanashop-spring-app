@@ -5,7 +5,9 @@ import com.longpc.hanashopspringapp.entities.CategoryEntity;
 import java.util.List;
 
 public interface ICategoryService {
-    public List<CategoryEntity> search() throws Exception;
-    public void save(CategoryEntity categoryEntity) throws Exception;
-    public void remove(String id) throws Exception;
+    List<CategoryEntity> search() throws Exception;
+
+    void save(CategoryEntity categoryEntity) throws Exception;
+
+    void remove(String id) throws Exception;
 }

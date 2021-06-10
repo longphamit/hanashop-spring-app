@@ -20,7 +20,7 @@ public class CategoryResource extends BaseResource<CategoryResource, CategoryEnt
     @GetMapping
     public ResponseEntity search() {
         try {
-            return responseListDataObject(HttpStatus.INTERNAL_SERVER_ERROR, Message.SEARCH_SUCCESS.name(), categoryService.search());
+            return responseListDataObject(HttpStatus.OK, Message.SEARCH_SUCCESS.name(), categoryService.search());
         } catch (Exception e) {
             e.printStackTrace();
             return responseListDataObject(HttpStatus.INTERNAL_SERVER_ERROR, Message.SEARCH_FAIL.name(), null);
