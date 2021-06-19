@@ -93,7 +93,7 @@ public class ImageService implements IImageService {
     }
 
     public String saveCkfinderImage(MultipartFile image) throws Exception {
-        String path = ImageConstant.PRODUCT_CKFINDER_IMAGE_FOLDER + image.getName() + "." + ImageConstant.JPG_EXTENSION;
+        String path = ImageConstant.PRODUCT_CKFINDER_IMAGE_FOLDER + image.getOriginalFilename() + "." + ImageConstant.JPG_EXTENSION;
         if (image != null) {
             Path productCKFinderPath = Paths.get(path);
             if (!Files.exists(productCKFinderPath)) {
@@ -101,11 +101,11 @@ public class ImageService implements IImageService {
                 LOGGER.info(LoggerConstant.createMessageLog("Product Image Folder Create"));
                 Files.deleteIfExists(Paths.get(path));
                 Files.copy(image.getInputStream(), productCKFinderPath, REPLACE_EXISTING);
-                return setCKfinderImageUrl(image.getName());
+                return setCKfinderImageUrl(image.getOriginalFilename());
             }
             Files.deleteIfExists(productCKFinderPath);
             Files.copy(image.getInputStream(), productCKFinderPath, REPLACE_EXISTING);
-            return setCKfinderImageUrl(image.getName());
+            return setCKfinderImageUrl(image.getOriginalFilename());
         }
         return null;
     }

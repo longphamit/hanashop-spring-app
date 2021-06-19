@@ -1,5 +1,6 @@
 package com.longpc.hanashopspringapp.services.impl;
 
+import com.longpc.hanashopspringapp.constant.ProductConstant;
 import com.longpc.hanashopspringapp.entities.ProductEntity;
 import com.longpc.hanashopspringapp.repositories.ImageRepository;
 import com.longpc.hanashopspringapp.repositories.ProductRepository;
@@ -30,6 +31,7 @@ public class ProductService implements IProductService {
     @Override
     public void save(ProductEntity productEntity, List<MultipartFile>images) throws Exception {
         productEntity.setId(IDUtil.generateID());
+        productEntity.setStatus(ProductConstant.STATUS_ACTIVE);
         productEntity.setCreateAt(new Timestamp(new Date().getTime()));
         productRepository.save(productEntity);
         imageService.saveProductImage(productEntity,images);

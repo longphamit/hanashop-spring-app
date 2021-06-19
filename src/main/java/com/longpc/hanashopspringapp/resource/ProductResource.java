@@ -5,7 +5,6 @@ import com.longpc.hanashopspringapp.entities.ProductEntity;
 import com.longpc.hanashopspringapp.services.IImageService;
 import com.longpc.hanashopspringapp.services.IProductService;
 import lombok.SneakyThrows;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Consumer;
 
 @RestController
 @RequestMapping("/product")
@@ -56,7 +54,7 @@ public class ProductResource extends BaseResource<ProductResource, ProductEntity
     @PostMapping("/ckfinder")
     @SneakyThrows
     public HashMap<String, Object> ckfinderImage(@RequestPart(value = "upload", required = false) MultipartFile image,
-                                                 @RequestPart(value = "ckCsrfToken") String tokenCsrf) {
+                                                 @RequestPart(value = "ckCsrfToken") String tokenCsrf) throws Exception {
         String path= imageService.saveCkfinderImage(image);
         HashMap<String, Object> map = new HashMap<>();
         HashMap<String, Object> mapSub = new HashMap<>();
@@ -71,6 +69,11 @@ public class ProductResource extends BaseResource<ProductResource, ProductEntity
     @GetMapping(path = "/ckfinder/image/{filename}", produces = {MediaType.IMAGE_JPEG_VALUE})
     public byte[] getCkfinderImage(@PathVariable("filename") String filename) throws Exception {
         return Files.readAllBytes(Paths.get(ImageConstant.PRODUCT_CKFINDER_IMAGE_FOLDER + "/" + filename));
+    }
+    @GetMapping(path = "/image/{productId}/{filename}", produces = {MediaType.IMAGE_JPEG_VALUE})
+    public byte[] getImage(@PathVariable("productId") String productId, @PathVariable("filename") String filename) throws Exception {
+        log(this, "GET IMAGE", INFO);
+        return Files.readAllBytes(Paths.get(ImageConstant.PRODUCT_FOLDER + productId + "/" + filename));
     }
 
     @Override

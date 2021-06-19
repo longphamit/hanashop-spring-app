@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name="image")
 public class ImageProductEntity {
@@ -16,4 +15,28 @@ public class ImageProductEntity {
     @ManyToOne()
     @JoinColumn(name = "product_id",insertable = false,updatable = false)
     private ProductEntity product;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 }
